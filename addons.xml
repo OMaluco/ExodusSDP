@@ -21,7 +21,7 @@
 	</extension>
 </addon>
 
-<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.5" provider-name="OMaluco">
+<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.6" provider-name="OMaluco">
 	<extension point="xbmc.addon.repository" name="Filmes Series Tuga Add-on Repository">
 		<info compressed="false">https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml.md5</checksum>
@@ -31,6 +31,30 @@
 		<summary>Repositorio ExodusSDP</summary>
 		<description>Filmes e Series</description>
 		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="script.exodus.artwork" version="1.0.4" name="Exodus Artwork" provider-name="Exodus">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Themes for the Exodus Addon</summary>
+		<description>Themes for Exodus are maintained separately to make distribution of the the addon itself easier/faster.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="script.exodus.metadata" version="1.0.0" name="Exodus Metadata" provider-name="Exodus">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Metadata for the Exodus Addon</summary>
+		<description>Metadata for Exodus are maintained separately to make distribution of the the addon itself easier/faster.</description>
 		<platform>all</platform>
 	</extension>
 </addon>
