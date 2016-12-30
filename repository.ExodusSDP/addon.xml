@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.4" provider-name="OMaluco">
+	<extension point="xbmc.addon.repository" name="Filmes Series Tuga Add-on Repository">
+		<info compressed="false">https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Repositorio ExodusSDP</summary>
+		<description>Filmes e Series</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
