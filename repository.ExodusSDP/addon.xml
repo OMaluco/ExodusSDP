@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.4" provider-name="OMaluco">
+<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.5" provider-name="OMaluco">
 	<extension point="xbmc.addon.repository" name="Filmes Series Tuga Add-on Repository">
 		<info compressed="false">https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml.md5</checksum>
