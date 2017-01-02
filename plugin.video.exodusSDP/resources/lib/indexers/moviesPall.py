@@ -1302,6 +1302,8 @@ class movies:
 
     def searchSDP(self):
         try:
+            control.makeFile(control.dataPath)
+            
             control.idle()
 
             t = control.lang(32010).encode('utf-8')

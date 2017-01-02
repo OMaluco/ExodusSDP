@@ -146,7 +146,7 @@ elif action == 'moviePageP':
     moviesP.movies().get(url)
 
 elif action == 'moviesPall':
-    
+    control.makeFile(control.dataPath)
     API_SITE = base64.urlsafe_b64decode('aHR0cDovL215YXBpbXAudGsvYXBpLw==')
     if 'animacao' in url:
         SDPlinks = ['http://www.filmesportuguesesonline.com/search/label/Animação',
@@ -197,7 +197,7 @@ elif action == 'moviesPall':
     moviesPall.movies().get(url)
 
 elif action == 'tvshowsPall':
-    
+    control.makeFile(control.dataPath)
     API_SITE = base64.urlsafe_b64decode('aHR0cDovL215YXBpbXAudGsvYXBpLw==')
     if 'animacao' in url:
         SDPlinks = [#'http://www.filmesportuguesesonline.com/',
