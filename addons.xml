@@ -24,8 +24,13 @@
 	</extension>
 </addon>
 
-<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.7" provider-name="OMaluco">
+<addon id="repository.ExodusSDP" name="Repositorio ExodusSDP" version="1.0.8" provider-name="OMaluco">
 	<extension point="xbmc.addon.repository" name="Filmes Series Tuga Add-on Repository">
+        <dir>
+           <info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+           <checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+           <datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+        </dir>
 		<info compressed="false">https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.githubusercontent.com/OMaluco/ExodusSDP/master/</datadir>
