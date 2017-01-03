@@ -24,11 +24,10 @@ import re,urllib,urlparse,json,base64,hashlib,time
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['watchseries.ag']
         self.base_link = 'aHR0cDovL3dzLm1n'
         self.hash_link = 'MzI4aiUlR3VTKiVzZkEyNDMxNDJmbyMyMyUl'
@@ -156,8 +155,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(uurl).getMediaUrl()
         return url
 
 

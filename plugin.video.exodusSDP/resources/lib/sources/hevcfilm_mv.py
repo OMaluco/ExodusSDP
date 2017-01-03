@@ -25,13 +25,12 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['hevcbluray.com']
-        self.base_link = 'https://hevcbluray.com'
+        self.base_link = 'http://hevcbluray.com'
         self.search_link = '/?s=%s'
 
 
@@ -112,8 +111,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

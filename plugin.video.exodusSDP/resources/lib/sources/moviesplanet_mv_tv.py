@@ -27,11 +27,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['moviesplanet.is']
         self.base_link = 'http://www.moviesplanet.is'
         self.search_link = '/ajax/search.php'
@@ -200,8 +199,6 @@ class source:
     def resolve(self, url):
         try:
             url = client.request(url, output='geturl')
-            if 'openload' in url:
-                url = openload.OpenLoad(url).getMediaUrl()
             return url
         except:
             return

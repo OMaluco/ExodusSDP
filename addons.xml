@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.exodusSDP" version="2.0.44" name="Exodus[COLOR green]S[/COLOR][COLOR yellow]d[/COLOR][COLOR red]P[/COLOR]" provider-name="OMaluco">
+<addon id="plugin.video.exodusSDP" version="2.0.45" name="Exodus[COLOR green]S[/COLOR][COLOR yellow]d[/COLOR][COLOR red]P[/COLOR]" provider-name="OMaluco">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.exodus.artwork" version="1.0.4" />

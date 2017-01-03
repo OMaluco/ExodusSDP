@@ -26,11 +26,10 @@ from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['sezonlukdizi.com']
         self.base_link = 'http://sezonlukdizi.com'
         self.search_link = '/js/dizi.js'
@@ -153,8 +152,7 @@ class source:
             for i in range(3):
                 u = directstream.googlepass(url)
                 if not u == None: break
-            if 'openload' in u:
-                u = openload.OpenLoad(u).getMediaUrl()
+
             return u
         except:
             return

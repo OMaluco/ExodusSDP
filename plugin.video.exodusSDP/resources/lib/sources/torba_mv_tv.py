@@ -26,11 +26,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import workers
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['torba.se']
         self.base_link = 'http://torba.se'
         self.search_mv_link = '/movies/autocomplete?order=relevance&title=%s'

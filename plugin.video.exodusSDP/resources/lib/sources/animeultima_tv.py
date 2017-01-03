@@ -26,10 +26,9 @@ from resources.lib.modules import client
 from resources.lib.modules import trakt
 from resources.lib.modules import tvmaze
 
-from resources.lib.modules import openload
-
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['animeultima.io']
         self.base_link = 'http://www.animeultima.io'
         self.search_link = '/search.html?searchquery=%s'
@@ -151,9 +150,6 @@ class source:
 
             url = client.parseDOM(result, 'div', attrs = {'class': 'player-embed'})[0]
             url = client.parseDOM(url, 'iframe', ret='src')[0]
-
-            if 'openload' in url:
-                url = openload.OpenLoad(url).getMediaUrl()
 
             return url
         except:

@@ -25,11 +25,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['hdmovie14.net']
         self.base_link = 'http://hdmovie14.net'
         self.search_link = 'aHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vY3VzdG9tc2VhcmNoL3YxZWxlbWVudD9rZXk9QUl6YVN5Q1ZBWGlVelJZc01MMVB2NlJ3U0cxZ3VubU1pa1R6UXFZJnJzej1maWx0ZXJlZF9jc2UmbnVtPTEwJmhsPWVuJmN4PTAwNjkxOTYxOTI2MzYxNzgyMDM4ODpkYmljLTZweGt4cyZnb29nbGVob3N0PXd3dy5nb29nbGUuY29tJnE9JXM='
@@ -132,10 +131,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
-            return url
-        else:
-            return directstream.googlepass(url)
+        return directstream.googlepass(url)
 
 

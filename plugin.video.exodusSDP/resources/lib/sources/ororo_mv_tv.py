@@ -25,11 +25,10 @@ from resources.lib.modules import cache
 from resources.lib.modules import control
 from resources.lib.modules import client
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['ororo.tv']
         self.base_link = 'https://ororo.tv'
         self.moviesearch_link = '/api/v2/movies'
@@ -140,8 +139,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

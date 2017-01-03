@@ -25,11 +25,10 @@ from resources.lib.modules import control
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['streamlord.com']
         self.base_link = 'http://www.streamlord.com'
         self.search_link = '/search2.php'
@@ -157,8 +156,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(uurl).getMediaUrl()
         return url
 
 

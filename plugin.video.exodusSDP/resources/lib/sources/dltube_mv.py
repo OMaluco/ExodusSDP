@@ -25,11 +25,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['mydownloadtube.com']
         self.base_link = 'http://www.mydownloadtube.com'
         self.search_link = '/search/search_val?language=English%20-%20UK&term='
@@ -123,8 +122,6 @@ class source:
     def resolve(self, url):
         try:
             url = client.request(url, output='geturl')
-            if 'openload' in url:
-                url = openload.OpenLoad(url).getMediaUrl()
             return url
         except:
             return

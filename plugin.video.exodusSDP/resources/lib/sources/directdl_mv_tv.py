@@ -26,11 +26,10 @@ from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['directdownload.tv']
         self.base_link = 'http://directdownload.tv'
         self.search_link = 'L2FwaT9rZXk9NEIwQkI4NjJGMjRDOEEyOSZxdWFsaXR5W109SERUViZxdWFsaXR5W109RFZEUklQJnF1YWxpdHlbXT03MjBQJnF1YWxpdHlbXT1XRUJETCZxdWFsaXR5W109V0VCREwxMDgwUCZxdWFsaXR5W109MTA4MFAtWDI2NSZsaW1pdD0yMCZrZXl3b3JkPQ=='
@@ -262,9 +261,6 @@ class source:
             url = [urllib.unquote_plus(i.strip()) for i in url]
             url = [i for i in url if i.startswith('http')]
             url = url[-1]
-
-            if 'openload' in url:
-                url = openload.OpenLoad(url).getMediaUrl()
 
             return url
         except:

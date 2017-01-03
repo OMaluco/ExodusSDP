@@ -25,10 +25,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['best-moviez.ws']
         self.base_link = 'http://www.best-moviez.ws'
         self.search_link = '/search/%s/feed/rss2/'
@@ -147,8 +147,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

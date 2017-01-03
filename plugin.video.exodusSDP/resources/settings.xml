@@ -96,7 +96,9 @@
 		<setting id="provider.ninemovies" type="bool" label="Ninemovies" default="false" />
 		<setting id="provider.onemovies" type="bool" label="Onemovies" default="false" />
 		<setting id="provider.onlinedizi" type="bool" label="Onlinedizi" default="false" />
+		<setting id="provider.onlinemovies" type="bool" label="Onlinemovies" default="true" />
 		<setting id="provider.onseries" type="bool" label="ONseries" default="false" />
+		<setting id="provider.openmovies" type="bool" label="Openmovies" default="true" />
 		<setting id="provider.ororo" type="bool" label="Ororo" default="false" />
 		<setting id="provider.pelispedia" type="bool" label="Pelispedia" default="false" />
 		<setting id="provider.pftv" type="bool" label="PFTV" default="false" />
@@ -119,11 +121,14 @@
 		<setting id="provider.tinydl" type="bool" label="Tinydl" default="false" />
 		<setting id="provider.torba" type="bool" label="Torba" default="false" />
 		<setting id="provider.tunemovie" type="bool" label="Tunemovie" default="false" />
+		<setting id="provider.tvbmoviez" type="bool" label="Tvbmoviez" default="true" />
 		<setting id="provider.twoddl" type="bool" label="twoDDL" default="false" />
 		<setting id="provider.watch32" type="bool" label="Watch32" default="false" />
 		<setting id="provider.watchfree" type="bool" label="Watchfree" default="false" />
+		<setting id="provider.watchhd" type="bool" label="WatchHD" default="false" />
 		<setting id="provider.watchseries" type="bool" label="Watchseries" default="false" />
 		<setting id="provider.wmo" type="bool" label="WMO" default="false" />
+		<setting id="provider.wrzcraft" type="bool" label="Wrzcraft" default="false" />
 		<setting id="provider.xmovies" type="bool" label="Xmovies" default="false" />
 		<setting id="provider.ymovies" type="bool" label="Ymovies" default="false" />
 	</category>

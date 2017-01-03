@@ -27,10 +27,9 @@ from resources.lib.modules import client
 from resources.lib.modules import debrid
 from resources.lib.modules import control
 
-from resources.lib.modules import openload
-
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['rlsbb.com']
         self.base_link = 'http://rlsbb.com'
         self.search_base_link = 'http://search.rlsbb.com'
@@ -228,8 +227,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

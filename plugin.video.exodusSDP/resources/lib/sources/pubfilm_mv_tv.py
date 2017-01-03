@@ -26,11 +26,10 @@ from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['pubfilmno1.com', 'pubfilm.com', 'pidtv.com']
         self.base_link = 'http://pidtv.com'
         self.moviesearch_link = '/%s-%s-full-hd-pidtv-free.html'
@@ -165,9 +164,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
-            return url
-        else: return directstream.googlepass(url)
+        return directstream.googlepass(url)
 
 

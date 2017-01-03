@@ -27,11 +27,10 @@ from resources.lib.modules import directstream
 from resources.lib.modules import trakt
 from resources.lib.modules import tvmaze
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['gogoanimemobile.com', 'gogoanimemobile.net', 'gogoanime.io']
         self.base_link = 'http://ww1.gogoanime.io'
         self.search_link = '/search.html?keyword=%s'
@@ -118,10 +117,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
-            return url
-        else:
-            return directstream.googlepass(url)
+        return directstream.googlepass(url)
 
 

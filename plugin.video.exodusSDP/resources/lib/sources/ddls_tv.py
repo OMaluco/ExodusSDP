@@ -26,11 +26,10 @@ from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['ddlseries.net']
         self.base_link = 'http://www.ddlseries.net'
         self.search_link = '/?s=%s'
@@ -126,8 +125,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

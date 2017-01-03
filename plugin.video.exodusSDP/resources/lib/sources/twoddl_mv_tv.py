@@ -26,12 +26,11 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
-
 class source:
     def __init__(self):
-        self.domains = ['2ddl.io']
-        self.base_link = 'http://2ddl.io'
+        self.language = ['en']
+        self.domains = ['2ddl.io', '2ddl.org', '2ddl.one']
+        self.base_link = 'http://2ddl.one'
         self.search_link = '/search/%s/feed/rss2/'
 
 
@@ -177,8 +176,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(uurl).getMediaUrl()
         return url
 
 

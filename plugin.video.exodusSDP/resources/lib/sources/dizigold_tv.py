@@ -26,11 +26,10 @@ from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['dizigold.net']
         self.base_link = 'http://www.dizigold.net'
         self.player_link = 'http://player.dizigold.net/?id=%s&s=1&dil=or'
@@ -125,8 +124,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

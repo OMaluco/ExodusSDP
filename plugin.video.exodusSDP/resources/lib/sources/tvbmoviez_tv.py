@@ -26,18 +26,30 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 
-from resources.lib.modules import openload
-
 class source:
     def __init__(self):
-        self.domains = ['newmyvideolink.xyz', 'beta.myvideolinks.xyz']
-        self.base_link = 'http://newmyvideolink.xyz'
+        self.language = ['en']
+        self.domains = ['best-moviez.ws']
+        self.base_link = 'http://www.best-moviez.ws'
         self.search_link = '/search/%s/feed/rss2/'
 
 
-    def movie(self, imdb, title, year):
+    def tvshow(self, imdb, tvdb, tvshowtitle, year):
         try:
-            url = {'imdb': imdb, 'title': title, 'year': year}
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
+
+
+    def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        try:
+            if url == None: return
+
+            url = urlparse.parse_qs(url)
+            url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
+            url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
         except:
@@ -69,7 +81,7 @@ class source:
 
             posts = client.parseDOM(r, 'item')
 
-            hostDict = hostprDict + hostDict
+            hostDict = hostprDict
 
             items = []
 
@@ -79,13 +91,14 @@ class source:
 
                     c = client.parseDOM(post, 'content.+?')[0]
 
-                    u = client.parseDOM(c, 'ul')
-                    u = client.parseDOM(u, 'a', ret='href')
-
                     s = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+) (?:GB|GiB|MB|MiB))', c)
                     s = s[0] if s else '0'
 
-                    items += [(t, i, s) for i in u]
+                    u = zip(client.parseDOM(c, 'a', ret='href'), client.parseDOM(c, 'a'))
+
+                    u = [(i[1], i[0], s) for i in u]
+
+                    items += u
                 except:
                     pass
 
@@ -142,12 +155,9 @@ class source:
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
 
-                    sources.append({'source': host, 'quality': quality, 'provider': 'Myvideolink', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+                    sources.append({'source': host, 'quality': quality, 'provider': 'Tvbmoviez', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
                 except:
                     pass
-
-            check = [i for i in sources if not i['quality'] == 'CAM']
-            if check: sources = check
 
             return sources
         except:
@@ -155,8 +165,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

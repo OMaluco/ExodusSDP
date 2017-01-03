@@ -19,18 +19,17 @@
 '''
 
 
-import re,urllib,urlparse,random,string,json,base64
+import re,urllib,urlparse,hashlib,string,time,json,base64
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['yesmovies.to']
         self.base_link = 'http://yesmovies.to'
         self.info_link = '/ajax/movie_info/%s.html'
@@ -189,12 +188,12 @@ class source:
 
             for u in r:
                 try:
-                    t = self.__get_token()
-                    c = '%s%s%s=%s' % (self.key1, episode_id, self.key2, t)
+                    t = self.__get_token(hash_len=6)
+                    c = '%s%s%s=%s' % (self.key1, u, self.key2, t)
                     h = {'X-Requested-With':'XMLHttpRequest'}
 
-                    p = urllib.quote(self.__uncensored(episode_id + self.key, t))
-                    p = self.playlist_link % (episode_id, p)
+                    p = urllib.quote(self.__uncensored(u + self.key, t))
+                    p = self.playlist_link % (u, p)
                     p = urlparse.urljoin(self.base_link, p)
 
                     u = client.request(p, headers=h, referer=ref, cookie=c, timeout='10')
@@ -213,18 +212,14 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(uurl).getMediaUrl()
-            return url
-        else: return directstream.googlepass(url)
+        return directstream.googlepass(url)
 
 
+    def __get_token(self, hash_len=16):
+        chars = string.digits + string.ascii_uppercase + string.ascii_lowercase
+        base = hashlib.sha512(str(int(time.time()) / 60 / 60)).digest()
+        return ''.join([chars[int(ord(c) % len(chars))] for c in base[:hash_len]])
 
-################### CREDITS FOR TKNORRIS for this FIXES ##############################
-		
-    def __get_token(self):
-        return ''.join(random.sample(string.digits + string.ascii_lowercase, 6))
-    
     def __uncensored(self, a, b):
         c = ''
         i = 0

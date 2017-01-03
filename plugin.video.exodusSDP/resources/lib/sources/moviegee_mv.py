@@ -25,11 +25,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['mvgee.com']
         self.base_link = 'http://mvgee.com'
         self.search_link = '/movies/watch-%s-online-free-%s'
@@ -88,10 +87,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
-            return url
-        else:
-            return directstream.googlepass(url)
+        return directstream.googlepass(url)
 
 

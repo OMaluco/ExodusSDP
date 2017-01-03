@@ -24,11 +24,10 @@ import urllib,urlparse,json
 from resources.lib.modules import control
 from resources.lib.modules import cleantitle
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = []
 
     def movie(self, imdb, title, year):
@@ -146,8 +145,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
         return url
 
 

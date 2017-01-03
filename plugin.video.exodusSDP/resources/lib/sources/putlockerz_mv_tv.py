@@ -25,11 +25,10 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import directstream
 
-from resources.lib.modules import openload
-
 
 class source:
     def __init__(self):
+        self.language = ['en']
         self.domains = ['putlockerz.ch']
         self.base_link = 'http://putlockerz.ch'
 
@@ -83,9 +82,11 @@ class source:
 
                     u1 = '%s/watch-%s-s%02d-%s-online-free-putlocker.html' % (self.base_link, cleantitle.geturl(title), int(data['season']), str((int(data['year']) + int(data['season'])) - 1))
                     u2 = '%s/watch-%s-s%02d-%s-online-free-putlocker.html' % (self.base_link, cleantitle.geturl(title), int(data['season']), data['year'])
+                    u3 = '%s/watch-%s-s%02d-%s-online-free-putlocker.html' % (self.base_link, cleantitle.geturl(title), int(data['season']), str(int(data['year'])+1))
 
                     r = client.request(u1, output='geturl')
                     if 'error.html' in r: r = client.request(u2, output='geturl')
+                    if 'error.html' in r: r = client.request(u3, output='geturl')
                     if 'error.html' in r: raise Exception()
                     url = r
                 else:
@@ -140,9 +141,6 @@ class source:
 
 
     def resolve(self, url):
-        if 'openload' in url:
-            url = openload.OpenLoad(url).getMediaUrl()
-            return url
-        else: return directstream.googlepass(url)
+        return directstream.googlepass(url)
 
 

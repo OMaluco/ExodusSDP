@@ -806,6 +806,13 @@ class sources:
 
             source = __import__(provider, globals(), locals(), [], -1).source()
             u = url = source.resolve(url)
+            
+            ##############
+            if 'openload' in url:
+                u = url = openload.OpenLoad(url).getMediaUrl()
+                d = ''
+                direct = True
+            ##############
 
             if url == None: raise Exception()
 
