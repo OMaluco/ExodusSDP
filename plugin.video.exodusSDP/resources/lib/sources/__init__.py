@@ -26,6 +26,7 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 from resources.lib.modules import workers
+from resources.lib.modules import openload
 
 try: from sqlite3 import dbapi2 as database
 except: from pysqlite2 import dbapi2 as database
