@@ -19,7 +19,7 @@
 '''
 
 
-import os,sys,urlparse,base64
+import os,sys,urlparse,base64#,xbmcgui
 
 from resources.lib.modules import control
 from resources.lib.modules import trakt
@@ -40,6 +40,17 @@ queueMenu = control.lang(32065).encode('utf-8')
 traktMode = False if control.setting('trakt_user') == '' else True
 
 imdbMode = False if control.setting('imdb_user') == '' else True
+
+##class AvisoFanart(xbmcgui.WindowXMLDialog):
+##
+##    def __init__( self, *args, **kwargs ):
+##          xbmcgui.WindowXML.__init__(self)
+##
+##    def onInit(self):
+##        pass
+##          
+##    def onClick(self,controlId):
+##        if controlId == 2001: self.close()
 
 
 class navigator:
@@ -63,6 +74,8 @@ class navigator:
 
         self.addDirectoryItem('Filmes Novos'+self.SDP, 'moviesPall&url=SDPtodos', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')#########
 
+        self.addDirectoryItem('[COLOR white]Últimas Releases (Filmes)[/COLOR]', 'releases&url=Releases', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
+
         if (traktIndicators == True and not control.setting('tv.widget.alt') == '0') or (traktIndicators == False and not control.setting('tv.widget') == '0'):
             self.addDirectoryItem(32006, 'tvWidget', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png')
 
@@ -84,11 +97,16 @@ class navigator:
 
         self.endDirectory()
 
+
     def moviesSDPNavigator(self):
+##        d = AvisoFanart("DialogVideoInfo.xml" , control.addonPath, "Default")
+##        d.doModal()
+##        del d
         t = '[COLOR blue] Animação[/COLOR]'
         sourcesTugaUp = ['Anituga','Cinematugahd','Filmeshare','FilmesPortuguesesOnline','Lausse','Moviefree','Movi3center','MrPiracy','RatoTv','Redcouch','Sembilhete','Toppt','Tugaflix','Tugafree','Tugahd','Vizer']
 
         self.addDirectoryItem('Pesquisar Filmes'+self.SDP, 'movieSDPSearch', 'search.png', 'DefaultMovies.png')
+        #self.addDirectoryItem('[COLOR white]Últimas Releases[/COLOR]', 'releases&url=Releases', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
         self.addDirectoryItem('Filmes Novos'+self.SDP, 'moviesPall&url=SDPtodos', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
         self.addDirectoryItem('Filmes Novos Animação'+self.SDP, 'moviesPall&url=SDPtodosanimacao', 'latest-movies.png', 'DefaultRecentlyAddedMovies.png')
         

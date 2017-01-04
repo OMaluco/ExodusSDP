@@ -29,7 +29,7 @@ from resources.lib.modules import workers
 from resources.lib.modules import metacache
 from resources.lib.modules import views
 
-import os,sys,re,json,zipfile,StringIO,urllib,urllib2,urlparse,datetime,base64
+import os,sys,re,json,zipfile,StringIO,urllib,urllib2,urlparse,datetime,base64,xbmc,time
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
 
@@ -302,22 +302,86 @@ class channels:
 ##                ('208', 'MTV Music', 'MTMM')
                 ]
 
+        try: timeout = int(control.setting('scrapers.timeout.1'))
+        except: pass
+
+        progressDialog = control.progressDialog if control.setting('progress.dialog') == '0' else control.progressDialogBG
+        progressDialog.create(control.addonInfo('name'), '')
+        progressDialog.update(0)
+
+        string1 = control.lang(32404).encode('utf-8')
+        string2 = control.lang(32405).encode('utf-8')
+        string3 = 'A procurar programação %s'
+        stringponto = '.'
+
+        string4 = string1 % '0'
+        string5 = string3 % str(stringponto)
+        progressDialog.update(0, str(string4), str(string5))
+
         threads = []
         for i in channels: threads.append(workers.Thread(self.MEO_list, i[0], i[1], i[2]))
+            
         [i.start() for i in threads]
-        [i.join() for i in threads]
+
+        for i in range(0, timeout * 2):
+            try:
+                if xbmc.abortRequested == True: return sys.exit()
+
+
+                try:
+                    if progressDialog.iscanceled(): break
+                    string4 = string1 % str(int(i * 0.5))
+                    string5 = string3 % str(stringponto)
+                    stringponto = stringponto + '.'
+                    progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str(string4), str(string5))
+                except:
+                    string4 = string2 % str(int(i * 0.5))
+                    string5 = string3 % str(stringponto)
+                    stringponto = stringponto + '.'
+                    progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str(string4), str(string5))
+
+
+                is_alive = [x.is_alive() for x in threads]
+                if all(x == False for x in is_alive): break
+                time.sleep(0.5)
+            except:
+                pass
 
         threads = []
         for i in range(0, len(self.items)):
             if 'Ep.' not in self.items[i][0]: threads.append(workers.Thread(self.movieChannel_list, self.items[i]))
-        [i.start() for i in threads]
-        [i.join() for i in threads]
 
-        threads = []
         for i in range(0, len(self.items)):
             if 'Ep.' in self.items[i][0]: threads.append(workers.Thread(self.tvChannel_list, self.items[i]))
+
         [i.start() for i in threads]
-        [i.join() for i in threads]
+
+        for i in range(0, timeout * 2):
+            try:
+                if xbmc.abortRequested == True: return sys.exit()
+
+
+                try:
+                    if progressDialog.iscanceled(): break
+                    string4 = string1 % str(int(i * 0.5))
+                    string5 = string3 % str(stringponto)
+                    stringponto = stringponto + '.'
+                    progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str(string4), str(string5))
+                except:
+                    string4 = string2 % str(int(i * 0.5))
+                    string5 = string3 % str(stringponto)
+                    stringponto = stringponto + '.'
+                    progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str(string4), str(string5))
+
+
+                is_alive = [x.is_alive() for x in threads]
+                if all(x == False for x in is_alive): break
+                time.sleep(0.5)
+            except:
+                pass
+
+        try: progressDialog.close()
+        except: pass
 
         self.list = metacache.local(self.list, self.tm_img_link, 'poster2', 'fanart')
 

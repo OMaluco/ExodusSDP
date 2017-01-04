@@ -145,6 +145,27 @@ elif action == 'moviePageP':
     from resources.lib.indexers import moviesP
     moviesP.movies().get(url)
 
+elif action == 'releases':
+    control.makeFile(control.dataPath)
+    
+    SDPlinks = ['http://www.vcdq.com/browse/1/0/3_2/10_9_21_22_23_24_6_28_32_19_11_3_2/0/2012_2013_2014_2015/0/0/0/0/page/1',
+                'http://www.scnsrc.me/category/films/page/1',
+                'http://www.rlslog.net/category/movies/bdrip/page/1',
+                'http://sceper.ws/category/movies/movies-bluray-rip/page/1',
+                'http://oneclickwatch.ws/category/movies/page/1',
+                'http://www.ddlvalley.rocks/category/movies/bdrip/page/1',
+                'http://rapidmoviez.com/l/m/1',
+                'http://www.rlsbb.com/category/movies/page/1',
+                'http://irfree.com/movies/bdripbbrip/page/1']
+
+    file = open(control.dataPath+'filmes.txt', 'w')                
+    for link in SDPlinks:
+        file.write(str(link)+os.linesep)                
+    file.close()
+        
+    from resources.lib.indexers import moviesPall
+    moviesPall.movies().get(url)
+
 elif action == 'moviesPall':
     control.makeFile(control.dataPath)
     API_SITE = base64.urlsafe_b64decode('aHR0cDovL215YXBpbXAudGsvYXBpLw==')

@@ -34,6 +34,8 @@ from resources.lib.modules import playcount
 from resources.lib.modules import workers
 from resources.lib.modules import views
 
+from resources.lib.modules import BeautifulSoup
+
 ##import os,sys,re,json,urllib,urlparse,datetime,base64
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
@@ -125,140 +127,125 @@ class movies:
         self.imdbcodes = []
         self.lista_limpa = []
         self.lista_next = []
-        
-        self.SdPtodos_link = 'http://SdPtodos'
-        self.SdPtodosAnimacao_link = 'http://SdPtodosAnimacao'
-        
-        self.toppt_link = 'http://toppt.net/category/filmes/'
-        self.topptAnimacao_link = 'http://toppt.net/category/animacao/'
-        self.tugafilmesus_link = 'http://www.tuga-filmes.us/search/label/Filmes'
-        self.tugafilmesusAnimacao_link = 'http://www.tuga-filmes.us/search/label/Anima%C3%A7%C3%A3o'
-        self.tugafilmescom_link = 'http://www.tuga-filmes.com'
-        self.tugafilmescomAnimacao_link = 'http://www.tuga-filmes.com/category/animacao/'
-        self.tugaio_link = 'http://tuga.io'
-        self.tugaioAnimacao_link = 'http://tuga.io'#
-        self.redcouch_link = 'http://www.redcouch.me/filmes/'
-        self.redcouchAnimacao_link = 'http://www.redcouch.me/animacao/'
-        self.tugaflix_link = 'http://tugaflix.com/Filmes?P=1'
-        self.tugaflixAnimacao_link = 'http://tugaflix.com/Filmes?G=Anima%C3%A7%C3%A3o'
-        self.tugahd_link = 'http://tugahd.com/index.php/filmes/novidades'
-        self.tugahdAnimacao_link = 'http://tugahd.com/index.php/animacoes'
-        self.tugafree_link = 'http://tugafree.com/category/filmes/'
-        self.tugafreeAnimacao_link = 'http://tugafree.com/category/filmes/animacao/'
-        self.lusoshare_link = 'http://lusoshare.com/category/cinema/'
-        self.lusoshareAnimacao_link = 'http://lusoshare.com/category/cinema/'
-        self.gigatuga_link = 'http://gigatuga.com/category/movies/'
-        self.gigatugaAnimacao_link = 'http://gigatuga.com/category/movies/animation/'#
-        self.ratotv_link = 'http://ratotv.xyz/movies'
-        self.ratotvAnimacao_link = 'http://ratotv.xyz/tags/Anima%C3%A7%C3%A3o/page/1/'
-        self.filmeshare_link = 'http://filmeshare.net/category/filmes/'
-        self.filmeshareAnimacao_link = 'http://filmeshare.net/category/animacao/'
-        self.warezflix_link = 'warezflix'
-        self.warezflixAnimacao_link = 'warezflix'#
-        self.warezbox_link = 'http://www.warez-box.net/index.php?/browse/1-font-colorff8040filmesfont/'
-        self.warezboxAnimacao_link = 'http://www.warez-box.net/index.php?/browse/5-animação/'
-        self.cinematugahd_link = 'http://cinematugahd.net/'
-        self.cinematugahdAnimacao_link = 'http://cinematugahd.net/category/animation/'
-        self.tugatorrent_link = 'http://tugatorrent.net/category/filmes/'
-        self.tugatorrentAnimacao_link = 'http://tugatorrent.net/category/animacao/'
-        self.piratatuga_link = 'http://piratatuga.xyz'
-        self.piratatugaAnimacao_link = 'http://piratatuga.xyz/category/animacao/'
-        self.moseon_link = 'http://www.moseon.com/movies'
-        self.moseonAnimacao_link = 'http://www.moseon.com/movies'
-        ####################################################################################
-
+        ###################################### SdP #########################################
 
 
     def get(self, url, idx=True):
         try:
-            try: url = getattr(self, url + '_link')
-            except: pass
-
-            try: u = urlparse.urlparse(url).netloc.lower()
-            except: pass
+##            try: url = getattr(self, url + '_link')
+##            except: pass
+##
+##            try: u = urlparse.urlparse(url).netloc.lower()
+##            except: pass
 
             sourceDict = []
 
             threads = []
 
             file = open(control.dataPath+'filmes.txt', 'r')
+
+            if url == 'Releases':
+
+                for link in file:
+                    
+                    try:
+                        s = re.compile('//(.+?)[.]com/').findall(str(link))[0]
+                        s = s.replace('www.','')
+                    except:
+                        try:
+                            s = re.compile('//(.+?)[.]rocks/').findall(str(link))[0]
+                            s = s.replace('www.','')
+                        except:
+                            try:
+                                s = re.compile('//(.+?)[.]ws/').findall(str(link))[0]
+                                s = s.replace('www.','')
+                            except:
+                                try:
+                                    s = re.compile('//(.+?)[.]net/').findall(str(link))[0]
+                                    s = s.replace('www.','')
+                                except: s = ''
+                                
+                    sourceDict.append(str(s))
+                    threads.append(workers.Thread(self.releases_list, link))
+
+            else:
             
-            for link in file:
-                
-                if 'ratotv' in link:
-                    sourceDict.append('ratotv')
-                    ratotv_link = link
-                    threads.append(workers.Thread(self.ratotv_list, ratotv_link))
+                for link in file:
                     
-                elif 'myapimp' in link:
-                    sourceDict.append('mrpiracy')
-                    mrpiracy_link = link
-                    threads.append(workers.Thread(self.mrpiracy_list, mrpiracy_link))
-                    
-                elif 'toppt' in link:
-                    sourceDict.append('toppt')
-                    toppt_link = link
-                    threads.append(workers.Thread(self.toppt_list, toppt_link))
-                    
-                elif 'cinematuga' in link:
-                    sourceDict.append('cinematuga')
-                    cinematugahd_link = link
-                    threads.append(workers.Thread(self.cinematugahd_list, cinematugahd_link))
-                    
-                elif 'filmesportuguesesonline' in link:
-                    sourceDict.append('filmesportuguesesonline')
-                    filmesportuguesesonline_link = link
-                    threads.append(workers.Thread(self.filmesportuguesesonline_list, filmesportuguesesonline_link))
-                    
-                elif 'tugaflix' in link:
-                    sourceDict.append('tugaflix')
-                    tugaflix_link = link
-                    threads.append(workers.Thread(self.tugaflix_list, tugaflix_link))
-                    
-                elif 'tugafree' in link:
-                    sourceDict.append('tugafree')
-                    tugafree_link = link
-                    threads.append(workers.Thread(self.tugafree_list, tugafree_link))
-                    
-                elif 'redcouch' in link:
-                    sourceDict.append('redcouch')
-                    redcouch_link = link
-                    threads.append(workers.Thread(self.redcouch_list, redcouch_link))
-                    
-                elif 'moviefree' in link:
-                    sourceDict.append('moviefree')
-                    moviefreept_link = link
-                    threads.append(workers.Thread(self.moviefreept_list, moviefreept_link))
-                    
-                elif 'movi3center' in link:
-                    sourceDict.append('movi3center')
-                    movi3center_link = link
-                    threads.append(workers.Thread(self.movi3center_list, movi3center_link))
-                    
-                elif 'lausse' in link:
-                    sourceDict.append('lausse')
-                    lausse_link = link
-                    threads.append(workers.Thread(self.lausse_list, lausse_link))
-                    
-                elif 'vizer' in link:
-                    sourceDict.append('vizer')
-                    vizer_link = link
-                    threads.append(workers.Thread(self.vizer_list, vizer_link))
-                    
-                elif 'filmeshare' in link:
-                    sourceDict.append('filmeshare')
-                    filmeshare_link = link
-                    threads.append(workers.Thread(self.filmeshare_list, filmeshare_link))
-                    
-                elif 'tugahd' in link:
-                    sourceDict.append('tugahd')
-                    tugahd_link = link
-                    threads.append(workers.Thread(self.tugahd_list, tugahd_link))
-                    
-                elif 'sembilhete' in link:
-                    sourceDict.append('sembilhetetv')
-                    sembilhete_link = link
-                    threads.append(workers.Thread(self.sembilhete_list, sembilhete_link))
+                    if 'ratotv' in link:
+                        sourceDict.append('ratotv')
+                        ratotv_link = link
+                        threads.append(workers.Thread(self.ratotv_list, ratotv_link))
+                        
+                    elif 'myapimp' in link:
+                        sourceDict.append('mrpiracy')
+                        mrpiracy_link = link
+                        threads.append(workers.Thread(self.mrpiracy_list, mrpiracy_link))
+                        
+                    elif 'toppt' in link:
+                        sourceDict.append('toppt')
+                        toppt_link = link
+                        threads.append(workers.Thread(self.toppt_list, toppt_link))
+                        
+                    elif 'cinematuga' in link:
+                        sourceDict.append('cinematuga')
+                        cinematugahd_link = link
+                        threads.append(workers.Thread(self.cinematugahd_list, cinematugahd_link))
+                        
+                    elif 'filmesportuguesesonline' in link:
+                        sourceDict.append('filmesportuguesesonline')
+                        filmesportuguesesonline_link = link
+                        threads.append(workers.Thread(self.filmesportuguesesonline_list, filmesportuguesesonline_link))
+                        
+                    elif 'tugaflix' in link:
+                        sourceDict.append('tugaflix')
+                        tugaflix_link = link
+                        threads.append(workers.Thread(self.tugaflix_list, tugaflix_link))
+                        
+                    elif 'tugafree' in link:
+                        sourceDict.append('tugafree')
+                        tugafree_link = link
+                        threads.append(workers.Thread(self.tugafree_list, tugafree_link))
+                        
+                    elif 'redcouch' in link:
+                        sourceDict.append('redcouch')
+                        redcouch_link = link
+                        threads.append(workers.Thread(self.redcouch_list, redcouch_link))
+                        
+                    elif 'moviefree' in link:
+                        sourceDict.append('moviefree')
+                        moviefreept_link = link
+                        threads.append(workers.Thread(self.moviefreept_list, moviefreept_link))
+                        
+                    elif 'movi3center' in link:
+                        sourceDict.append('movi3center')
+                        movi3center_link = link
+                        threads.append(workers.Thread(self.movi3center_list, movi3center_link))
+                        
+                    elif 'lausse' in link:
+                        sourceDict.append('lausse')
+                        lausse_link = link
+                        threads.append(workers.Thread(self.lausse_list, lausse_link))
+                        
+                    elif 'vizer' in link:
+                        sourceDict.append('vizer')
+                        vizer_link = link
+                        threads.append(workers.Thread(self.vizer_list, vizer_link))
+                        
+                    elif 'filmeshare' in link:
+                        sourceDict.append('filmeshare')
+                        filmeshare_link = link
+                        threads.append(workers.Thread(self.filmeshare_list, filmeshare_link))
+                        
+                    elif 'tugahd' in link:
+                        sourceDict.append('tugahd')
+                        tugahd_link = link
+                        threads.append(workers.Thread(self.tugahd_list, tugahd_link))
+                        
+                    elif 'sembilhete' in link:
+                        sourceDict.append('sembilhetetv')
+                        sembilhete_link = link
+                        threads.append(workers.Thread(self.sembilhete_list, sembilhete_link))
                     
             file.close()
                         
@@ -280,7 +267,7 @@ class movies:
             string1 = control.lang(32404).encode('utf-8')
             string2 = control.lang(32405).encode('utf-8')
             string3 = control.lang(32406).encode('utf-8')
-
+            
             for i in range(0, timeout * 2):
                 try:
                     if xbmc.abortRequested == True: return sys.exit()
@@ -338,14 +325,17 @@ class movies:
             try: progressDialog.close()
             except: pass
 
-            file = open(control.dataPath+'filmes.txt', 'r')
-            for linha in file:   
-                if 'SDPSearch' in str(linha):
-                    next = 'SDPSearch'
-                    break
-                else: next = 'SDPtodos'
-            file.close()
-          
+            if url == 'Releases': next = 'Releases'
+            else:
+                file = open(control.dataPath+'filmes.txt', 'r')
+                for linha in file:   
+                    if 'SDPSearch' in str(linha):
+                        next = 'SDPSearch'
+                        break
+                    else:
+                        next = 'SDPtodos'
+                file.close()
+
             slist = []
             for i in self.list:
                 if i!='0':
@@ -355,6 +345,7 @@ class movies:
             
             self.list = []
             for i in slist:
+                print i
                 self.list.append({'title': '0', 'originaltitle': '0', 'year': '0', 'premiered': '0', 'genre': '0', 'duration': '0', 'rating': '0', 'votes': '0', 'mpaa': '0', 'plot': '0', 'imdb': i, 'tvdb': '0', 'poster': '0', 'metacache': False, 'next': next})
 
 ##            threads = []
@@ -374,6 +365,37 @@ class movies:
 
     
 ################################################################################################################
+        
+    def releases_list(self, link_url):
+        
+        if 'www.vcdq.com' not in link_url: urLink = link_url
+        else: urlink = link_url.replace('/page','')        
+
+        result = client.request(urLink)
+        
+        soup = BeautifulSoup.BeautifulSoup(result)
+        
+	for link in soup.findAll('a', attrs={'href': re.compile("^http://.+?/title/")}):
+            
+            if '?' in link.get('href'): result_imdb = link.get('href').split("?")[0].split("/title/")[1].replace('/','').replace('awards','').replace('videogallery','')
+	    else: result_imdb = link.get('href').split("title")[1].replace('/','').replace('awards','').replace('videogallery','')
+	    
+            self.list.append(result_imdb)
+
+        try:
+            next = re.compile('/page/(.*)').findall(link_url)[0]
+            prev = 'page/'+str(next)
+            next = int(next)+1
+            next = 'page/'+str(next)
+            next = link_url.replace(prev,next).replace('\n','')
+        except:
+            next = ''
+
+        file = open(control.dataPath+'filmes.txt', 'a')
+        if next != '': file.write(str(next)+os.linesep)
+        file.close()
+
+	return self.list
 
 
     def mrpiracy_list(self, link_url):
@@ -1769,11 +1791,12 @@ class movies:
 
         if items[0]['next'] != 'SDPSearch':
             try:
-    ##            url = items[0]['next']
-    ##            if url == '': raise Exception()
+                url = items[0]['next']
+                if url != 'Releases': url = 'SDPtodos'
+                #if url == '': raise Exception()
 
                 icon = control.addonNext()
-                url = '%s?action=moviePagePall&url=%s' % (sysaddon, 'SDPtodos')#urllib.quote_plus(url))
+                url = '%s?action=moviePagePall&url=%s' % (sysaddon, urllib.quote_plus(url))
 
                 item = control.item(label=nextMenu)
 
